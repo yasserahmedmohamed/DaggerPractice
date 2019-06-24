@@ -3,6 +3,7 @@ package com.yasserahmed.daggerpractice1;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,6 +19,7 @@ import com.yasserahmed.daggerpractice1.Models.User;
 import com.yasserahmed.daggerpractice1.ViewModels.ViewModelProviderFactory;
 import com.yasserahmed.daggerpractice1.ui.auth.AuthResource;
 import com.yasserahmed.daggerpractice1.ui.auth.AuthViewModel;
+import com.yasserahmed.daggerpractice1.ui.main.MainActivity;
 
 import javax.inject.Inject;
 
@@ -51,7 +53,7 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
     }
 
     private void subscribeObserve(){
-       viewModel.observeUser().observe(this, new Observer<AuthResource<User>>() {
+       viewModel.obserAuthstate().observe(this, new Observer<AuthResource<User>>() {
            @Override
            public void onChanged(AuthResource<User> userAuthResource) {
                if (userAuthResource != null)
@@ -69,8 +71,7 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
                        }
                        case AUTHENTICATED:{
                            SetprogressVisible(false);
-                           Toast.makeText(AuthActivity.this,userAuthResource.data.getEmail(),
-                                   Toast.LENGTH_SHORT).show();
+                           OnLoginDone();
                            break;
                        }
                        case NOT_AUTHENTICATED:{
@@ -112,5 +113,11 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
             return;
         }
         viewModel.authenticateWithId(Integer.parseInt(edittext_userID.getText().toString()));
+    }
+
+    private void OnLoginDone(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
