@@ -4,6 +4,7 @@ import com.yasserahmed.daggerpractice1.AuthActivity;
 import com.yasserahmed.daggerpractice1.di.auth.AtuhViewModelModule;
 import com.yasserahmed.daggerpractice1.di.auth.AuthModule;
 import com.yasserahmed.daggerpractice1.di.main.MainFragmentBuilderModule;
+import com.yasserahmed.daggerpractice1.di.main.MainModule;
 import com.yasserahmed.daggerpractice1.di.main.MainViewModelModule;
 import com.yasserahmed.daggerpractice1.ui.main.MainActivity;
 
@@ -17,7 +18,8 @@ public abstract class ActivityBuilderModule {
     @ContributesAndroidInjector(modules = {AtuhViewModelModule.class, AuthModule.class})
     abstract AuthActivity constributeAuthActivity();
 
-    @ContributesAndroidInjector(modules = {MainFragmentBuilderModule.class, MainViewModelModule.class})
+    @ContributesAndroidInjector(modules = {MainFragmentBuilderModule.class,
+            MainViewModelModule.class, MainModule.class})
     abstract MainActivity constributeMAinActivity();
 
 
